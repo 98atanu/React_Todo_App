@@ -24,7 +24,7 @@ const TaskList = ({ task, id }) => {
       initial={{ opacity: 0, scale: 0.5 }}
       animate={{ opacity: 1, scale: 1 }}
       exit={{y : '50%', opacity: 0, scale : 0.5}}
-      transition={{ ease: "easeOut", duration: 0.5 }}
+      transition={{ ease: "easeOut", delay: 2, duration: 0.5 }}
       className="flex  items-center relative w-[40vw] px-3 py-2  bg-violet-800 rounded-md text-white shadow-md shadow-cyan-900 mb-4"
     >
       <h2 className="font-bold ">{task}</h2>

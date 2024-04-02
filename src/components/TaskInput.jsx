@@ -1,27 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { MdAdd } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
-import { addTodo } from "../redux-toolkit/slices/TodoSlice";
+import { addTodo,  } from "../redux-toolkit/slices/TodoSlice";
 import TaskList from "./TaskList";
 import { motion } from "framer-motion";
+import toast, { Toaster } from 'react-hot-toast';
+
 
 const TaskInput = () => {
   const dispatch = useDispatch();
   const [taskInput, setTaskInput] = useState("");
-  const todos = useSelector((state) => state.todo);
-
-  useEffect(() => {
-    const storedTasks = localStorage.getItem("task");
-    if (storedTasks) {
-      dispatch(addTodo(JSON.parse(storedTasks)));
-    }
-  }, [dispatch]);
-
-  // Update local storage whenever todos change
-  useEffect(() => {
-    localStorage.setItem("tasks", JSON.stringify(todos));
-  }, [todos]);
-
+  const todos = useSelector((state) => state.todo.todoList);
+ 
   // Dispatch the addTodo action to
   const handleAddTodo = (event) => {
     event.preventDefault();
@@ -29,14 +19,22 @@ const TaskInput = () => {
       const taskId = Date.now();
       dispatch(addTodo({ id: taskId, task: taskInput }));
       setTaskInput("");
+      toast.success("Todo Item Added")
     }
   };
 
+  
+
   return (
     <main className="flex flex-col justify-center items-center py-[10vh] px-[10vw] ">
+      <Toaster
+  position="top-center"
+  reverseOrder={true}
+/>
       <motion.div
         initial={{ opacity: 0, y: 100 }}
         animate={{ opacity: 1, y: 0 }}
+        
         transition={{ ease: [0.25, 1, 0.5, 1], duration: 2 }}
         className="mb-7"
       >
@@ -58,7 +56,7 @@ const TaskInput = () => {
           onChange={(e) => setTaskInput(e.target.value)}
         />
         <span className=" text-white font-bold absolute right-7 text-xl bg-slate-500 rounded-full hover:bg-green-400 hover:text-green-800 cursor-pointer ">
-          <MdAdd onClick={handleAddTodo} />
+          <MdAdd onClick={handleAddTodo}  />
         </span>
       </motion.div>
       {todos.map((item, index) => (
