@@ -10,6 +10,7 @@ import toast, { Toaster } from 'react-hot-toast';
 const TaskInput = () => {
   const dispatch = useDispatch();
   const [taskInput, setTaskInput] = useState("");
+  const [addClicked, setAddClicked] = useState(false);
   const todos = useSelector((state) => state.todo);
 
  
@@ -20,6 +21,7 @@ const TaskInput = () => {
       const taskId = Date.now();
       dispatch(addTodo({ id: taskId, task: taskInput }));
       setTaskInput("");
+      setAddClicked(true);
       toast.success("Todo Item Added")
     }
   };
@@ -60,7 +62,7 @@ const TaskInput = () => {
         </span>
       </motion.div>
       {todos.map((item,index) => (
-        <TaskList task={item.task} id={item.id} key={index} />
+        <TaskList task={item.task} id={item.id} key={index} addClicked={addClicked} />
       ))}
     </main>
   );
