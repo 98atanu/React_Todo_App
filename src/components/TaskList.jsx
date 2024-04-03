@@ -4,6 +4,8 @@ import { useDispatch } from "react-redux";
 import { deleteTodo } from "../redux-toolkit/slices/TodoSlice";
 import { ImCheckmark, ImCross } from "react-icons/im";
 import { motion } from "framer-motion";
+import toast, { Toaster } from 'react-hot-toast';
+
 
 const TaskList = ({ task, id }) => {
   const dispatch = useDispatch();
@@ -12,11 +14,19 @@ const TaskList = ({ task, id }) => {
 
   const handleOnClick = () => {
     setMarkTask(!markTask);
+    if (markTask === true) {
+      toast.error("Todo Task Incompleted!")
+    }
+    else{
+      toast.success('Todo Task Completed!')
+    }
+    
   };
 
   // Dispatch the deleteTodo action with the task ID as payload
   const handleDelete = () => {
     dispatch(deleteTodo({ id }));
+    toast.error("Todo Item Deleted")
   };
 
   return (
@@ -24,7 +34,7 @@ const TaskList = ({ task, id }) => {
       initial={{ opacity: 0, scale: 0.5 }}
       animate={{ opacity: 1, scale: 1 }}
       exit={{y : '50%', opacity: 0, scale : 0.5}}
-      transition={{ ease: "easeOut", delay: 0.1, duration: 0.5 }}
+      transition={{ ease: "easeOut", duration: 0.5 }}
       className="flex  items-center relative w-[40vw] px-3 py-2  bg-violet-800 rounded-md text-white shadow-md shadow-cyan-900 mb-4"
     >
       <h2 className="font-bold ">{task}</h2>
