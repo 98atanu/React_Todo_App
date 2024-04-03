@@ -10,7 +10,8 @@ import toast, { Toaster } from 'react-hot-toast';
 const TaskInput = () => {
   const dispatch = useDispatch();
   const [taskInput, setTaskInput] = useState("");
-  const todos = useSelector((state) => state.todo.todoList);
+  const todos = useSelector((state) => state.todo);
+
  
   // Dispatch the addTodo action to
   const handleAddTodo = (event) => {
@@ -23,9 +24,8 @@ const TaskInput = () => {
     }
   };
 
-  
-
   return (
+  
     <main className="flex flex-col justify-center items-center py-[10vh] px-[10vw] ">
       <Toaster
   position="top-center"
@@ -59,7 +59,7 @@ const TaskInput = () => {
           <MdAdd onClick={handleAddTodo}  />
         </span>
       </motion.div>
-      {todos.map((item, index) => (
+      {todos.map((item,index) => (
         <TaskList task={item.task} id={item.id} key={index} />
       ))}
     </main>

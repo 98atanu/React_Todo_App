@@ -5,13 +5,14 @@ const TodoSlice = createSlice({
     initialState : localStorage.getItem('reduxState') ? JSON.parse(localStorage.getItem('reduxState')).todo : {todoList: []},
     reducers : {
         addTodo : (state,action) => {
-            state.todoList.push({
+            state.push({
                 task : action.payload.task,
-                id : action.payload.id,
+                id : action.payload.id
             })
         },
         deleteTodo : (state,action) => {
-            return state.todoList.filter((todo)=> todo.id !== action.payload.id)
+            return state.filter((todo) => todo.id !== action.payload.id);
+                  
         },
 
     }
