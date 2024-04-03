@@ -15,14 +15,20 @@ const TaskInput = () => {
 
  
   // Dispatch the addTodo action to
-  const handleAddTodo = (event) => {
-    event.preventDefault();
+  const handleAddTodo = () => {
+    
     if (taskInput.trim() !== "") {
       const taskId = Date.now();
       dispatch(addTodo({ id: taskId, task: taskInput }));
       setTaskInput("");
       setAddClicked(true);
       toast.success("Todo Item Added")
+    }
+  };
+
+  const handleKeyPress = (event) => {
+    if (event.key === 'Enter') {
+      handleAddTodo();
     }
   };
 
@@ -56,6 +62,7 @@ const TaskInput = () => {
           placeholder="Add Todo Tasks Here..."
           value={taskInput}
           onChange={(e) => setTaskInput(e.target.value)}
+          onKeyPress={handleKeyPress}
         />
         <span className=" text-white font-bold absolute right-7 text-xl bg-slate-500 rounded-full hover:bg-green-400 hover:text-green-800 cursor-pointer ">
           <MdAdd onClick={handleAddTodo}  />
