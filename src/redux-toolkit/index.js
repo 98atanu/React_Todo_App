@@ -7,8 +7,4 @@ const Store = configureStore({
     },
 })
 
-Store.subscribe(()=>{
-    localStorage.setItem('reduxState', JSON.stringify(Store.getState()))
-})
-
 export default Store;

@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const TodoSlice = createSlice({
     name : 'todo',
-    initialState : localStorage.getItem('reduxState') ? JSON.parse(localStorage.getItem('reduxState')).todo : {todoList: []},
+    initialState : [],
     reducers : {
         addTodo : (state,action) => {
             state.push({
